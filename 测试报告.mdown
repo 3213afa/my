@@ -3,12 +3,14 @@
 
 1.测试对象
 测试对象：网络爬虫
+
 2.测试范围
 政治会议类事件：包括http://xinhuanet.com/ 
 展会类事件：包括http://www.eshow365.com/ 
 体育赛事类事件：包括https://www.damai.cn/ 
 演唱会类事件：包括https://www.damai.cn/ 
 突发异常天气类事件：http://www.weather.com.cn/等网页视图。
+
 3.引用文件
 import_scrapy.py
 tx_spiders.py
