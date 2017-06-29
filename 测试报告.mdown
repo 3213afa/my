@@ -1,0 +1,45 @@
+                                                         网络爬虫运行
+                                                           测试报告
+
+1.测试对象
+测试对象：网络爬虫
+2.测试范围
+政治会议类事件：包括http://xinhuanet.com/ 
+展会类事件：包括http://www.eshow365.com/ 
+体育赛事类事件：包括https://www.damai.cn/ 
+演唱会类事件：包括https://www.damai.cn/ 
+突发异常天气类事件：http://www.weather.com.cn/等网页视图。
+3.引用文件
+import_scrapy.py
+tx_spiders.py
+wt_spiders.py
+
+4.测试环境
+电脑操作系统 windows 7
+mysql接口 3306
+测试视图 scrapy shell
+
+5.测试用例
+爬虫相关代码：
+
+from scrapy.contrib.spiders import CrawlSpider
+from tuto.items import TutoItem
+
+class NgaSpider(CrawlSpider):
+    name = "NgaSpider"
+    allowed_domains = ['news.cn']
+
+    # 这个例子中只指定了一CrawlSpider个页面作为爬取的起始url
+    # 当然从数据库或者文件或者什么其他地方读取起始url也是可以的
+    start_urls = [
+        "http://www.news.cn/politics/24xsyw.htm",
+        #"http://sports.news.cn/",
+    ]
+    def parse(self,response):
+        item=TutoItem()
+        item["link"]=response.xpath('//ul/li[@class="clearfix"]/h3/a/@href').extract()
+        item["title"]=response.xpath('//ul/li[@class="clearfix"]/h3/a/text()').extract()
+        link=item["link"]
+        title=item["title"]
+        bb=zip(link,title)
+        yield item
